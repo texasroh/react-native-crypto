@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import styled from "styled-components/native";
-import { coins } from "../api";
+import { coins, ICoin } from "../api";
 import { BLACK_COLOR } from "../colors";
 import Coin from "../components/Coin";
 
@@ -23,16 +23,6 @@ const List = styled(FlatList<ICoin>)`
   padding: 20px 10px;
   width: 100%;
 `;
-
-interface ICoin {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
-}
 
 const Home = () => {
   const { isLoading, data } = useQuery<ICoin[]>(["coins"], coins);
@@ -60,7 +50,7 @@ const Home = () => {
         numColumns={3}
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
-          <Coin index={index} symbol={item.symbol} />
+          <Coin index={index} id={item.id} symbol={item.symbol} />
         )}
       />
     </Container>
